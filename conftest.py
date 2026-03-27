@@ -21,7 +21,7 @@ def build_options():
 
 @pytest.fixture
 def driver():
- opts = build_options()
- driver = webdriver.Chrome(options=opts)
- yield driver
- driver.quit()
+    opts = build_options()
+    driver = webdriver.Chrome(options=opts)
+    yield driver
+    driver.quit()

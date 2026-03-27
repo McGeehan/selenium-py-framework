@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  browser-tools: circleci/browser-tools@1.4.8
+  browser-tools: circleci/browser-tools@1.4
 
 jobs:
   test:
@@ -27,9 +27,9 @@ jobs:
           name: Run Tests
           command: |
             . .venv/bin/activate
-            mkdir -p reports
             pytest --html=reports/report.html --self-contained-html
 workflows:
+  version: 2
   test-workflow:
     jobs:
       - test
