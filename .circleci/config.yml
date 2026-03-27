@@ -1,0 +1,30 @@
+jobs:
+  test:
+    docker:
+      - image: cimg/node:20.4.0-browsers
+    steps:
+      - checkout
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      - run:
+          name: Install Python and venv
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y python3.10-venv
+      - run: 
+          name: Install Python Dependencies
+          command: |
+            python -m venv .venv
+            . .venv/bin/activate
+            pip install -U pip
+            pip install selenium pytest pytest-html python-dotenv
+      - run:
+          name: Run Tests
+          command: |
+            . .venv/bin/activate
+            pytest --html=reports/report.html --self-contained-html
+workflows:
+  version: 2
+  test-workflow:
+    jobs:
+      - test
